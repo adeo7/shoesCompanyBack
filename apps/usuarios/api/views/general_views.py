@@ -4,7 +4,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from apps.base.api import GeneralListAPIView
 from apps.usuarios.models import LocalUsuario, Roles
-from apps.usuarios.api.serializers.general_serializer import  RolesSerializer, LocalUsuarioSerializer
+from apps.usuarios.api.serializers.general_serializer import  RolesSerializer
+from apps.usuarios.api.serializers.local_serializer import LocalUsuarioSerializer
 
 class RolesViewSet(viewsets.GenericViewSet):
     model = Roles
