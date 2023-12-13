@@ -85,6 +85,20 @@ class Usuario(AbstractBaseUser, PermissionsMixin, BaseModel):
     def __str__(self):
         return f'{self.name} {self.last_name}'
 
+class RecuperarContraseña(BaseModel):
+    token = models.CharField(max_length=255, unique=True)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, verbose_name='Usuario')
+    historical = HistoricalRecords()
+
+    @property
+    def _history_user(self):
+        return self.changed_by
+
+    @_history_user.setter
+    def _history_user(self, value):
+        self.changed_by = value
+    def __str__(self):
+        return f"Token for {self.usuario.username}"
 
 class LocalUsuario(BaseModel):
     id = models.AutoField(primary_key=True)
