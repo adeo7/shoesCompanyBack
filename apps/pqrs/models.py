@@ -12,7 +12,7 @@ class PqrInformacion(BaseModel):
         return timezone.now() + timedelta(days=14)
 
     peticion = models.CharField('Tipo peticion', max_length=30, blank=False, null=True)
-    num_radicado = models.PositiveIntegerField('Número de Radicado', unique=True)
+    num_radicado = models.PositiveIntegerField('Número de Radicado', unique=True, null=True, blank=True)
     descripcion = models.TextField('Descripcion peticion', max_length=255, blank=False, null=True, unique=True)
     tiempo_restante = models.DateField('Fecha de timepo restante', auto_now=False, auto_now_add=True)
     fecha_estimada = models.DateField('Fecha de estimada', default=get_fecha_estimada_default)
@@ -21,7 +21,7 @@ class PqrInformacion(BaseModel):
     historical = HistoricalRecords(inherit=True)
 
     def save(self, *args, **kwargs):
-        if not self.id and self.num_radicado is None:
+        if not self.num_radicado:
             max_value = 999999  # El valor máximo del número aleatorio (ajústalo según tu preferencia)
             while True:
                 num = random.randint(1, max_value)
@@ -80,7 +80,7 @@ class ArchivosPqrInformacion(BaseModel):
     historical = HistoricalRecords(inherit=True)
 
     def save(self, *args, **kwargs):
-        if not self.id and self.codigo is None:
+        if not self.codigo:
             max_value = 999999  # El valor máximo del número aleatorio (ajústalo según tu preferencia)
             while True:
                 num = random.randint(1, max_value)
@@ -116,7 +116,7 @@ class ArchivosPqrRespuesta(BaseModel):
     historical = HistoricalRecords(inherit=True)
 
     def save(self, *args, **kwargs):
-        if not self.id and self.codigo is None:
+        if not self.codigo:
             max_value = 999999  # El valor máximo del número aleatorio (ajústalo según tu preferencia)
             while True:
                 num = random.randint(1, max_value)
