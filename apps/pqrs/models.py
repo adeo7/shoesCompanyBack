@@ -5,32 +5,14 @@ from apps.usuarios.models import LocalUsuario, Usuario
 from datetime import timedelta
 from django.utils import timezone
 
-class PqrPeticion(BaseModel):
-    descripcion = models.CharField('Tipo de peticion', max_length=20, blank=False, null=True)
-    historical = HistoricalRecords(inherit=True)
-
-    @property
-    def _history_user(self):
-        return self.changed_by
-
-    @_history_user.setter
-    def _history_user(self, value):
-        self.changed_by = value
-
-    def __str__(self):
-        return self.descripcion
-
-    class Meta:
-        verbose_name = 'Tipo peticion pqr'
-        verbose_name_plural = 'Tipos peticiones pqrs'
 
 class PqrInformacion(BaseModel):
     def get_fecha_estimada_default():
         # Retorna la fecha actual más 14 días
         return timezone.now() + timedelta(days=14)
 
+    peticion = models.CharField('Tipo peticion', max_length=30, blank=False, null=True)
     num_radicado = models.PositiveIntegerField('Número de Radicado', unique=True)
-    peticion_pqr_id = models.ForeignKey(PqrPeticion, on_delete=models.CASCADE, verbose_name='Tipo peticion pqr', null=True, default=1)
     descripcion = models.TextField('Descripcion peticion', max_length=255, blank=False, null=True, unique=True)
     tiempo_restante = models.DateField('Fecha de timepo restante', auto_now=False, auto_now_add=True)
     fecha_estimada = models.DateField('Fecha de estimada', default=get_fecha_estimada_default)
@@ -55,7 +37,6 @@ class PqrInformacion(BaseModel):
 
 class PqrRespuesta(BaseModel):
 
-    peticion_pqr_id = models.ForeignKey(PqrPeticion, on_delete=models.CASCADE, verbose_name='Tipo peticion pqr', default=1)
     descripcion = models.TextField('Descripcion respuesta a peticion', max_length=255, blank=False, null=True, unique=True)
     fecha_respuesta = models.DateField('Fecha de respuesta', auto_now=True, auto_now_add=False)
     local_id = models.ForeignKey(LocalUsuario, on_delete=models.CASCADE, verbose_name='Local para la respuesta', null=True)
