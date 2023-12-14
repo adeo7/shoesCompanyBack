@@ -29,7 +29,7 @@ class PqrInformacion(BaseModel):
         # Retorna la fecha actual más 14 días
         return timezone.now() + timedelta(days=14)
 
-    num_radicado = models.PositiveIntegerField('Número de Radicado', unique=True)
+    num_radicado = models.PositiveIntegerField('Número de Radicado', unique=True, null=True,blank=True)
     peticion_pqr_id = models.ForeignKey(PqrPeticion, on_delete=models.CASCADE, verbose_name='Tipo peticion pqr', null=True, default=1)
     descripcion = models.TextField('Descripcion peticion', max_length=255, blank=False, null=True, unique=True)
     tiempo_restante = models.DateField('Fecha de timepo restante', auto_now=False, auto_now_add=True)
