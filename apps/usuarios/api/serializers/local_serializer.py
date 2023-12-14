@@ -20,8 +20,8 @@ class LocalUsuarioSerializer(serializers.ModelSerializer):
         if usuario and usuario.roles_id.nombre_rol == 'cliente':
             usuario.roles_id = local_role
             usuario.save()
-
         return local
+
     def to_representation(self, instance):
         return {
             'id': instance.id,
