@@ -19,6 +19,7 @@ class PqrRespuestaSerializer(serializers.ModelSerializer):
             'nombre_usuario': instance.usuario_id.name if instance.usuario_id is not None else '',
             'apellidos_usuario': instance.usuario_id.last_name if instance.usuario_id is not None else '',
             'direccion_usuario': instance.usuario_id.direccion if instance.usuario_id is not None else '',
+            'id_usuario': instance.usuario_id.id if instance.usuario_id is not None else '',
             'tipo_documento': instance.usuario_id.tipo_documento if instance.usuario_id is not None else '',
             'documento': instance.usuario_id.documento if instance.usuario_id is not None else '',
             'telefono_usuario': instance.usuario_id.telefono if instance.usuario_id is not None else '',
