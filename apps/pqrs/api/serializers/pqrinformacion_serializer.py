@@ -11,6 +11,7 @@ class PqrInformacionSerializer(serializers.ModelSerializer):
         return {
             'id': instance.id,
             'numero_radicado' : instance.num_radicado,
+            'descripcion':instance.descripcion,
             'tipo_peticion': instance.peticion if instance.peticion is not None else '',
             'tiempo_restante': instance.tiempo_restante,
             'fecha_estimada': instance.fecha_estimada,

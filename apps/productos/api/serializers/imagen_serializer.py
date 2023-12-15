@@ -19,5 +19,5 @@ class ImagenSerializer(serializers.ModelSerializer):
             'id': instance.id,
             'codigo': instance.codigo,
             'image': instance.image.url,
-            'producto': instance.producto_id.nombre if instance.producto_id is not None else '',
+            'producto': instance.producto_id.id if instance.producto_id is not None else '',
         }
